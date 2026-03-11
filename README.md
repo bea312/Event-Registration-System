@@ -14,7 +14,7 @@ This application is a professional, multi-step registration platform built for t
 
 
 
-## 🛠️ Technical Stack
+##  Technical Stack
 * **Framework:** React (Vite)
 * **Routing:** React Router DOM v6 (Client-side routing)
 * **State Management:** React Hooks (`useState`, `useEffect`)
@@ -48,4 +48,4 @@ The application utilizes a **Single-File Architecture** for simplicity while mai
 
 ##  Author
 **Mukagasirabo Beatrice** 
- Frontend Developer
+ *Frontend Developer*
