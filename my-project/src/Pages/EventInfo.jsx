@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageShell from '../Components/PageShell';
 
 import EventHero from '../assets/Event Engagement Ideas From Tech Conferences in___.jpeg';
 

@@ -1,115 +1,129 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+const ticketOptions = ["Standard", "VIP", "Student"];
 
 export default function RegistrationForm({ user, setUser }) {
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+  const updateField = (field) => (event) => {
+    const value = event.target.value;
+    setUser((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate("/review");
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-10 px-6">
-      <div className="mb-8">
-       
-        <h2 className="text-4xl font-black text-slate-100 leading-tight">Submit your registration</h2>
-        <p className="text-slate-400 mt-2">
-          Share a few details so we can reserve your seat and personalize your conference experience.
-        </p>
-      </div>
+    <div className="min-h-screen flex items-center justify-center px-4 py-10">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-3xl bg-slate-900/80 border border-slate-800 rounded-3xl p-8 space-y-6 shadow-2xl"
+      >
+        <div>
+    
+          <h1 className="text-3xl font-bold text-slate-100 mt-2">Register for Tech Innovation 2026</h1>
+          <p className="text-slate-400 mt-1">Share your details so we can reserve you a seat.</p>
+        </div>
 
-      <div className="bg-slate-900/70 border border-slate-700 rounded-3xl p-8 space-y-6 shadow-xl shadow-cyan-900/40">
         <div className="grid md:grid-cols-2 gap-4">
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
+          <label className="space-y-1 text-sm text-slate-400">
             Full name
             <input
-              name="fullName"
-              placeholder="fullname"
-              className="p-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-500 transition-colors"
+              type="text"
               value={user.fullName}
-              onChange={handleChange}
+              onChange={updateField("fullName")}
+              className="w-full rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-3 text-slate-100 focus:border-cyan-500 outline-none"
+              required
             />
           </label>
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
-            Email address
+          <label className="space-y-1 text-sm text-slate-400">
+            Email
             <input
-              name="email"
               type="email"
-              placeholder="you@email.com"
-              className="p-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-500 transition-colors"
               value={user.email}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
-            Phone number
-            <input
-              name="phone"
-              type="tel"
-              placeholder="tel"
-              className="p-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-500 transition-colors"
-              value={user.phone}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
-            Organization / institution
-            <input
-              name="organization"
-              placeholder="Idea Lab, Enterprise Group, University"
-              className="p-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-500 transition-colors"
-              value={user.organization}
-              onChange={handleChange}
+              onChange={updateField("email")}
+              className="w-full rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-3 text-slate-100 focus:border-cyan-500 outline-none"
+              required
             />
           </label>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
-            Ticket type
-            <select
-              name="ticketType"
-              className="p-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-500 transition-colors"
-              value={user.ticketType}
-              onChange={handleChange}
-            >
-              <option>Standard</option>
-              <option>VIP</option>
-              <option>Student</option>
-            </select>
-          </label>
-          <label className="flex flex-col gap-2 text-sm text-slate-300">
-            Dietary preferences
+          <label className="space-y-1 text-sm text-slate-400">
+            Phone number
             <input
-              name="dietary"
-              placeholder="No seafood / Vegan / Allergies"
-              className="p-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-500 transition-colors"
-              value={user.dietary}
-              onChange={handleChange}
+              type="tel"
+              value={user.phone}
+              onChange={updateField("phone")}
+              className="w-full rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-3 text-slate-100 focus:border-cyan-500 outline-none"
+            />
+          </label>
+          <label className="space-y-1 text-sm text-slate-400">
+            Organization
+            <input
+              type="text"
+              value={user.organization}
+              onChange={updateField("organization")}
+              className="w-full rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-3 text-slate-100 focus:border-cyan-500 outline-none"
             />
           </label>
         </div>
 
-        <label className="flex flex-col gap-2 text-sm text-slate-300">
+        <div className="grid md:grid-cols-2 gap-4">
+          <label className="space-y-1 text-sm text-slate-400">
+            Ticket type
+            <select
+              value={user.ticketType}
+              onChange={updateField("ticketType")}
+              className="w-full rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-3 text-slate-100 focus:border-cyan-500 outline-none"
+            >
+              {ticketOptions.map((ticket) => (
+                <option key={ticket} value={ticket}>
+                  {ticket}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="space-y-1 text-sm text-slate-400">
+            Dietary requirements
+            <input
+              type="text"
+              value={user.dietary}
+              onChange={updateField("dietary")}
+              className="w-full rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-3 text-slate-100 focus:border-cyan-500 outline-none"
+            />
+          </label>
+        </div>
+
+        <label className="space-y-1 text-sm text-slate-400">
           Additional notes
           <textarea
-            name="notes"
-            rows="4"
-            placeholder="Tell us if you’re speaking, bringing a team, need a visa letter, etc."
-            className="p-3 rounded-2xl bg-slate-950 border border-slate-700 focus:border-cyan-500 transition-colors"
             value={user.notes}
-            onChange={handleChange}
+            onChange={updateField("notes")}
+            rows={4}
+            className="w-full rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-3 text-slate-100 focus:border-cyan-500 outline-none"
           />
         </label>
 
-        <button
-          onClick={() => navigate('/review')}
-          className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg shadow-cyan-900/40"
-        >
-          Review Application
-        </button>
-      </div>
+        <div className="flex justify-between items-center gap-4">
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className="flex-1 border border-slate-700 py-3 rounded-2xl font-bold text-slate-100 hover:border-cyan-500 transition"
+          >
+            Back to Event Info
+          </button>
+          <button
+            type="submit"
+            className="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 text-slate-950 font-bold py-3 rounded-2xl shadow-lg shadow-cyan-900/40 transition hover:from-cyan-500 hover:to-blue-500"
+          >
+            Review & Confirm
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

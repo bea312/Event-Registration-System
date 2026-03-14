@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageShell from '../Components/PageShell';
+import DetailRow from "../Components/DetailRow";
 
 export default function Dashboard({ user, onCancel, onEdit }) {
   const navigate = useNavigate();
